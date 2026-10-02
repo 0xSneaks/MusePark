@@ -1,0 +1,17 @@
+name: conformance
+on: [push, pull_request]
+jobs:
+  reference:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: reference/python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[test]"
+      - name: vectors are reproducible
+        run: python gen_vectors.py && git diff --exit-code ../../vectors
+      - run: pytest -q

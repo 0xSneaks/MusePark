@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "canonical": "{\"a\":\"x\",\"b\":1,\"c\":[true,false,null]}",
+      "canonical_utf8_hex": "7b2261223a2278222c2262223a312c2263223a5b747275652c66616c73652c6e756c6c5d7d",
+      "input": {
+        "a": "x",
+        "b": 1,
+        "c": [
+          true,
+          false,
+          null
+        ]
+      }
+    },
+    {
+      "canonical": "{\"\\r\":2,\"1\":5,\"€\":1,\"😀\":3,\"דּ\":4}",
+      "canonical_utf8_hex": "7b225c72223a322c2231223a352c22e282ac223a312c22f09f9880223a332c22efacb3223a347d",
+      "input": {
+        "\r": 2,
+        "1": 5,
+        "€": 1,
+        "דּ": 4,
+        "😀": 3
+      }
+    },
+    {
+      "canonical": "{\"s\":\"line\\nbreak \\\"quoted\\\" back\\\\slash \\u0007 bell  \"}",
+      "canonical_utf8_hex": "7b2273223a226c696e655c6e627265616b205c2271756f7465645c22206261636b5c5c736c617368205c75303030372062656c6c20e280a8227d",
+      "input": {
+        "s": "line\nbreak \"quoted\" back\\slash \u0007 bell  "
+      }
+    },
+    {
+      "canonical": "{\"amount\":\"340282366920938463463374607431768211455\",\"max_safe\":9007199254740991}",
+      "canonical_utf8_hex": "7b22616d6f756e74223a22333430323832333636393230393338343633343633333734363037343331373638323131343535222c226d61785f73616665223a393030373139393235343734303939317d",
+      "input": {
+        "amount": "340282366920938463463374607431768211455",
+        "max_safe": 9007199254740991
+      }
+    }
+  ],
+  "description": "RFC 8785 under the AMP profile (no floats, |int| <= 2^53-1).",
+  "must_reject": [
+    {
+      "input_description": "float 0.5"
+    },
+    {
+      "input_description": "integer 9007199254740992"
+    }
+  ]
+}

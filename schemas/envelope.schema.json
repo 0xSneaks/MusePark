@@ -1,0 +1,571 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/0xSneaks/MusePark/schemas/envelope.schema.json",
+  "title": "AMP signed message envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "from",
+    "kid",
+    "market_id",
+    "seq",
+    "expires_at",
+    "body",
+    "sig"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "PROPOSE",
+        "CLAIM_ROLE",
+        "FORECAST_COMMIT",
+        "FORECAST_REVEAL",
+        "SUBMIT_POSITION",
+        "CLOSE",
+        "RESOLVE",
+        "VERIFY_PROOF",
+        "DISPUTE",
+        "SETTLE",
+        "KEY_BIND",
+        "KEY_REVOKE",
+        "CAPABILITY_AD"
+      ]
+    },
+    "from": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "kid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "market_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "expires_at": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "body": {
+      "type": "object"
+    },
+    "sig": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{128}([0-9a-f]{2})?$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "PROPOSE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "spec",
+              "instance",
+              "salt"
+            ],
+            "properties": {
+              "spec": {
+                "$ref": "https://github.com/0xSneaks/MusePark/schemas/market_spec.schema.json"
+              },
+              "instance": {
+                "$ref": "https://github.com/0xSneaks/MusePark/schemas/market_instance.schema.json"
+              },
+              "salt": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "CLAIM_ROLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role"
+            ],
+            "properties": {
+              "role": {
+                "enum": [
+                  "resolver",
+                  "watcher",
+                  "settler",
+                  "forecaster",
+                  "oracle_relay"
+                ]
+              },
+              "note": {
+                "type": "string",
+                "maxLength": 280
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "FORECAST_COMMIT"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "commitment"
+            ],
+            "properties": {
+              "commitment": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "FORECAST_REVEAL"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "p_ppm",
+              "salt"
+            ],
+            "properties": {
+              "p_ppm": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000000
+              },
+              "salt": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "SUBMIT_POSITION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "side",
+              "amount"
+            ],
+            "properties": {
+              "side": {
+                "enum": [
+                  "YES",
+                  "NO"
+                ]
+              },
+              "amount": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,38})$",
+                "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "CLOSE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "yes_pool",
+              "no_pool",
+              "position_count",
+              "positions_root"
+            ],
+            "properties": {
+              "yes_pool": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,38})$",
+                "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+              },
+              "no_pool": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,38})$",
+                "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+              },
+              "position_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "positions_root": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "RESOLVE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "outcome",
+              "evidence",
+              "bond"
+            ],
+            "properties": {
+              "outcome": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "INVALID"
+                ]
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "$ref": "https://github.com/0xSneaks/MusePark/schemas/observation.schema.json"
+                }
+              },
+              "bond": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,38})$",
+                "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "VERIFY_PROOF"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "claim_ref",
+              "outcome",
+              "reason",
+              "agrees"
+            ],
+            "properties": {
+              "claim_ref": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "outcome": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "INVALID"
+                ]
+              },
+              "reason": {
+                "enum": [
+                  "OK",
+                  "QUORUM_NOT_MET"
+                ]
+              },
+              "agrees": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "DISPUTE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "claim_ref",
+              "outcome",
+              "evidence",
+              "bond"
+            ],
+            "properties": {
+              "claim_ref": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "outcome": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "INVALID"
+                ]
+              },
+              "evidence": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "https://github.com/0xSneaks/MusePark/schemas/observation.schema.json"
+                }
+              },
+              "bond": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,38})$",
+                "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "SETTLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "outcome",
+              "reason"
+            ],
+            "properties": {
+              "outcome": {
+                "enum": [
+                  "YES",
+                  "NO",
+                  "INVALID"
+                ]
+              },
+              "reason": {
+                "enum": [
+                  "OK",
+                  "QUORUM_NOT_MET",
+                  "ROUND_CAP",
+                  "NO_RESOLUTION"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "KEY_BIND"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "alg",
+              "pubkey",
+              "address",
+              "valid_from",
+              "cosig"
+            ],
+            "properties": {
+              "alg": {
+                "enum": [
+                  "ed25519",
+                  "secp256k1"
+                ]
+              },
+              "pubkey": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}([0-9a-f]{2})?$"
+              },
+              "address": {
+                "type": "string",
+                "description": "CAIP-10 account id"
+              },
+              "valid_from": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "cosig": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{128}([0-9a-f]{2})?$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "KEY_REVOKE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kid",
+              "effective_from"
+            ],
+            "properties": {
+              "kid": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "effective_from": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "CAPABILITY_AD"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "roles",
+              "rails"
+            ],
+            "properties": {
+              "roles": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "resolver",
+                    "watcher",
+                    "settler",
+                    "forecaster",
+                    "oracle_relay",
+                    "proposer"
+                  ]
+                }
+              },
+              "rails": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "endpoint": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

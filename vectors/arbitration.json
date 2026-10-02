@@ -1,0 +1,386 @@
+{
+  "cases": [
+    {
+      "events": [
+        {
+          "bond": "1000000",
+          "claimant": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675290,
+              "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+              "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+              "value": "9990000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675300,
+              "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+              "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+              "value": "10001000"
+            }
+          ],
+          "kind": "RESOLVE",
+          "outcome": "NO",
+          "ts": 1798678870
+        }
+      ],
+      "name": "uncontested",
+      "result": {
+        "bond_returns": [
+          "1000000"
+        ],
+        "log": [
+          {
+            "accepted": true,
+            "kind": "RESOLVE",
+            "outcome": "NO"
+          }
+        ],
+        "outcome": "NO",
+        "reason": "OK",
+        "resolution_fee_recipient": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "settled": true,
+        "treasury_from_slash": "0"
+      },
+      "settle_ts": 1798686070
+    },
+    {
+      "events": [
+        {
+          "bond": "1000000",
+          "claimant": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675290,
+              "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+              "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+              "value": "9990000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675300,
+              "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+              "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+              "value": "10001000"
+            }
+          ],
+          "kind": "RESOLVE",
+          "outcome": "NO",
+          "ts": 1798678870
+        },
+        {
+          "bond": "2000000",
+          "claimant": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675261,
+              "sig": "65221ebc3ea18b615ad56c5491b12ca4dff1dfda04e5c83e47c5471c963d4e0119223fd5271fb6a497dae3567f14bf77c8bc0773d451d6716fbcb8c579286404",
+              "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+              "value": "10100000"
+            }
+          ],
+          "kind": "DISPUTE",
+          "outcome": "YES",
+          "ts": 1798678960
+        }
+      ],
+      "name": "dispute_flips_with_withheld_evidence",
+      "result": {
+        "bond_returns": [
+          "0",
+          "2500000"
+        ],
+        "log": [
+          {
+            "accepted": true,
+            "kind": "RESOLVE",
+            "outcome": "NO"
+          },
+          {
+            "accepted": true,
+            "kind": "DISPUTE",
+            "outcome": "YES",
+            "round": 1
+          }
+        ],
+        "outcome": "YES",
+        "reason": "OK",
+        "resolution_fee_recipient": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "settled": true,
+        "treasury_from_slash": "500000"
+      },
+      "settle_ts": 1798686160
+    },
+    {
+      "events": [
+        {
+          "bond": "1000000",
+          "claimant": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675320,
+              "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+              "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+              "value": "10050000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675290,
+              "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+              "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+              "value": "9990000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675300,
+              "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+              "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+              "value": "10001000"
+            }
+          ],
+          "kind": "RESOLVE",
+          "outcome": "YES",
+          "ts": 1798678870
+        },
+        {
+          "bond": "2000000",
+          "claimant": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675800,
+              "sig": "c164d358619493ee3b0675df26515ec611ecdad2e6078e0af0e8ceed1bbc24ec180a7fb249fe464cea7634bea789abcbbfd4be58b86abfaf46184f68e665cc07",
+              "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+              "value": "1"
+            }
+          ],
+          "kind": "DISPUTE",
+          "outcome": "NO",
+          "ts": 1798678880
+        }
+      ],
+      "name": "dispute_rejected_no_change",
+      "result": {
+        "bond_returns": [
+          "1000000"
+        ],
+        "log": [
+          {
+            "accepted": true,
+            "kind": "RESOLVE",
+            "outcome": "YES"
+          },
+          {
+            "accepted": false,
+            "kind": "DISPUTE",
+            "why": "DOES_NOT_CHANGE_F"
+          }
+        ],
+        "outcome": "YES",
+        "reason": "OK",
+        "resolution_fee_recipient": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "settled": true,
+        "treasury_from_slash": "0"
+      },
+      "settle_ts": 1798686070
+    },
+    {
+      "events": [
+        {
+          "bond": "1000000",
+          "claimant": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675320,
+              "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+              "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+              "value": "10050000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675300,
+              "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+              "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+              "value": "10001000"
+            }
+          ],
+          "kind": "RESOLVE",
+          "outcome": "YES",
+          "ts": 1798678859
+        },
+        {
+          "bond": "1000000",
+          "claimant": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675320,
+              "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+              "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+              "value": "10050000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675300,
+              "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+              "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+              "value": "10001000"
+            }
+          ],
+          "kind": "RESOLVE",
+          "outcome": "YES",
+          "ts": 1798678860
+        }
+      ],
+      "name": "resolve_too_early_then_valid",
+      "result": {
+        "bond_returns": [
+          "1000000"
+        ],
+        "log": [
+          {
+            "accepted": false,
+            "kind": "RESOLVE",
+            "why": "OUTSIDE_RESOLVE_WINDOW"
+          },
+          {
+            "accepted": true,
+            "kind": "RESOLVE",
+            "outcome": "YES"
+          }
+        ],
+        "outcome": "YES",
+        "reason": "OK",
+        "resolution_fee_recipient": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "settled": true,
+        "treasury_from_slash": "0"
+      },
+      "settle_ts": 1798686060
+    },
+    {
+      "events": [],
+      "name": "no_resolution",
+      "result": {
+        "bond_returns": [],
+        "log": [],
+        "outcome": "INVALID",
+        "reason": "NO_RESOLUTION",
+        "resolution_fee_recipient": null,
+        "settled": true,
+        "treasury_from_slash": "0"
+      },
+      "settle_ts": 1798765260
+    },
+    {
+      "events": [
+        {
+          "bond": "1000000",
+          "claimant": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence": [
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675290,
+              "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+              "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+              "value": "9990000"
+            },
+            {
+              "feed": "TEST/USD",
+              "observation_ts": 1798675200,
+              "published_ts": 1798675300,
+              "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+              "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+              "value": "10001000"
+            }
+          ],
+          "kind": "RESOLVE",
+          "outcome": "NO",
+          "ts": 1798678870
+        }
+      ],
+      "name": "settle_too_early",
+      "result": {
+        "log": [
+          {
+            "accepted": true,
+            "kind": "RESOLVE",
+            "outcome": "NO"
+          }
+        ],
+        "settled": false,
+        "why": "TOO_EARLY"
+      },
+      "settle_ts": 1798686069
+    }
+  ],
+  "instance": {
+    "collateral": "eip155:31337/erc20:0x0000000000000000000000000000000000000001",
+    "creation_fee": "0",
+    "dispute_window": 7200,
+    "fee_bps": 200,
+    "fee_split_bps": {
+      "proposer": 3000,
+      "resolver": 3000,
+      "settler": 1000,
+      "treasury": 3000
+    },
+    "max_rounds": 4,
+    "min_stake": "1000",
+    "rail": "eip155:31337",
+    "resolve_window": 86400,
+    "resolver_bond": "1000000",
+    "reveal_window": 86400
+  },
+  "spec": {
+    "amp": "0.3",
+    "close_ts": 1798588800,
+    "oracle": {
+      "class": "A",
+      "comparator": "gte",
+      "decimals": 2,
+      "feed": "TEST/USD",
+      "finality_delay": 60,
+      "kind": "numeric_threshold",
+      "observation_ts": 1798675200,
+      "publish_window": 3600,
+      "quorum": 2,
+      "sources": [
+        {
+          "alg": "ed25519",
+          "pubkey": "a67f722b4fe61be85328c53f296f94613b810a309fa61f5ca0fe53f3c0d992af"
+        },
+        {
+          "alg": "ed25519",
+          "pubkey": "1551b51dbf245445a7e1e5b1fddeffe9e778deae18e53f6fb4c7d251670078ae"
+        },
+        {
+          "alg": "ed25519",
+          "pubkey": "3bf2bd203ac3cf1ff51f995fba1f0508e06a0430eb00767130a2c7328c52f63d"
+        }
+      ],
+      "threshold": "10000000"
+    },
+    "question": "Will the TEST/USD feed print >= 100000.00 at 2026-12-31T00:00:00Z?",
+    "rules": "Informative only. The oracle object is normative."
+  }
+}

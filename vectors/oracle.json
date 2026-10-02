@@ -1,0 +1,250 @@
+{
+  "cases": [
+    {
+      "evidence": [
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675320,
+          "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+          "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+          "value": "10050000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675290,
+          "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+          "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+          "value": "9990000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675300,
+          "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+          "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+          "value": "10001000"
+        }
+      ],
+      "name": "all_three_yes_median",
+      "result": {
+        "chosen": {
+          "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9": "10050000",
+          "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c": "10001000",
+          "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040": "9990000"
+        },
+        "equivocated": [],
+        "median": "10001000",
+        "outcome": "YES",
+        "reason": "OK"
+      }
+    },
+    {
+      "evidence": [
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675320,
+          "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+          "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+          "value": "10050000"
+        }
+      ],
+      "name": "quorum_not_met",
+      "result": {
+        "chosen": {
+          "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9": "10050000"
+        },
+        "equivocated": [],
+        "outcome": "INVALID",
+        "reason": "QUORUM_NOT_MET"
+      }
+    },
+    {
+      "evidence": [
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675320,
+          "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+          "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+          "value": "10050000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675800,
+          "sig": "c164d358619493ee3b0675df26515ec611ecdad2e6078e0af0e8ceed1bbc24ec180a7fb249fe464cea7634bea789abcbbfd4be58b86abfaf46184f68e665cc07",
+          "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+          "value": "1"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675290,
+          "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+          "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+          "value": "9990000"
+        }
+      ],
+      "name": "later_revision_ignored",
+      "result": {
+        "chosen": {
+          "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9": "10050000",
+          "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040": "9990000"
+        },
+        "equivocated": [],
+        "median": "9990000",
+        "outcome": "NO",
+        "reason": "OK"
+      }
+    },
+    {
+      "evidence": [
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675320,
+          "sig": "8b4210c7874df8c2a2f4cfef488f6a92bd8b362dc4bc76b2b67e452d80a6c07555a51b4ecc0c2159e7036ba82244607950bb1e0d59908d9175cac2c56668b901",
+          "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+          "value": "10050000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675290,
+          "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+          "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+          "value": "9990000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675261,
+          "sig": "65221ebc3ea18b615ad56c5491b12ca4dff1dfda04e5c83e47c5471c963d4e0119223fd5271fb6a497dae3567f14bf77c8bc0773d451d6716fbcb8c579286404",
+          "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+          "value": "10100000"
+        }
+      ],
+      "name": "earlier_print_wins",
+      "result": {
+        "chosen": {
+          "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9": "10050000",
+          "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040": "10100000"
+        },
+        "equivocated": [],
+        "median": "10050000",
+        "outcome": "YES",
+        "reason": "OK"
+      }
+    },
+    {
+      "evidence": [
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675290,
+          "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+          "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+          "value": "9990000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675300,
+          "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+          "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+          "value": "10001000"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675300,
+          "sig": "54f93b84133cd3e8a17c39fb4d696170b0714ac2f7947898ab0eea388b8b622cdaf6d7a12a3b309505207602b5708202b888eeb57c34b42cce01d8dec70a5609",
+          "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+          "value": "9000000"
+        }
+      ],
+      "name": "equivocation_drops_source",
+      "result": {
+        "chosen": {
+          "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040": "9990000"
+        },
+        "equivocated": [
+          "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c"
+        ],
+        "outcome": "INVALID",
+        "reason": "QUORUM_NOT_MET"
+      }
+    },
+    {
+      "evidence": [
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675210,
+          "sig": "3eed6eedaa4745a078aaed049d2860ec3c8cfd6f9b672e60c53be88fba3497d64089fcaf46f11762274b05697462d95d9991228fbc77432de9917775c1448501",
+          "source_id": "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+          "value": "1"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675290,
+          "sig": "a6de29e800b9ce994cf5da9477452ef349c4fa389fc4816c1a52f335d1555379f868e235f5bbb266c9d9cb7c252e3cdf4f58d491c03f17071d7658996cdd4e0f",
+          "source_id": "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+          "value": "99999999"
+        },
+        {
+          "feed": "TEST/USD",
+          "observation_ts": 1798675200,
+          "published_ts": 1798675300,
+          "sig": "929cba844a087152e7b7a3da7ded8540b2b87623e33287a7d56feb9b7e632816959f85bfd0b467c78fc8fee75abd37cdd0dbb1c5d30354646f8f4a87fba64409",
+          "source_id": "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c",
+          "value": "10001000"
+        }
+      ],
+      "name": "invalid_obs_ignored",
+      "result": {
+        "chosen": {
+          "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c": "10001000"
+        },
+        "equivocated": [],
+        "outcome": "INVALID",
+        "reason": "QUORUM_NOT_MET"
+      }
+    }
+  ],
+  "oracle": {
+    "class": "A",
+    "comparator": "gte",
+    "decimals": 2,
+    "feed": "TEST/USD",
+    "finality_delay": 60,
+    "kind": "numeric_threshold",
+    "observation_ts": 1798675200,
+    "publish_window": 3600,
+    "quorum": 2,
+    "sources": [
+      {
+        "alg": "ed25519",
+        "pubkey": "a67f722b4fe61be85328c53f296f94613b810a309fa61f5ca0fe53f3c0d992af"
+      },
+      {
+        "alg": "ed25519",
+        "pubkey": "1551b51dbf245445a7e1e5b1fddeffe9e778deae18e53f6fb4c7d251670078ae"
+      },
+      {
+        "alg": "ed25519",
+        "pubkey": "3bf2bd203ac3cf1ff51f995fba1f0508e06a0430eb00767130a2c7328c52f63d"
+      }
+    ],
+    "threshold": "10000000"
+  },
+  "source_ids": [
+    "68780d8be416ba20a19b5e1f3feac8ac5f2a98fb16bd37189262ff64dc710bf9",
+    "fdb5e1cd6a9b9a7343b356b37bbfb7f1426ef4f666aea81d3fdecf8b8dc52040",
+    "c34c1ca51c529d77ff092fcf6c56669a3c2223488d46083d012283b59c2af53c"
+  ]
+}

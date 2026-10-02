@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/0xSneaks/MusePark/schemas/market_instance.schema.json",
+  "title": "AMP market instance (rail binding + economics)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rail",
+    "collateral",
+    "creation_fee",
+    "fee_bps",
+    "fee_split_bps",
+    "min_stake",
+    "resolver_bond",
+    "resolve_window",
+    "dispute_window",
+    "max_rounds",
+    "reveal_window"
+  ],
+  "properties": {
+    "rail": {
+      "type": "string",
+      "description": "CAIP-2 chain id"
+    },
+    "collateral": {
+      "type": "string",
+      "description": "CAIP-19 asset id"
+    },
+    "creation_fee": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,38})$",
+      "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+    },
+    "fee_bps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "fee_split_bps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposer",
+        "resolver",
+        "settler",
+        "treasury"
+      ],
+      "properties": {
+        "proposer": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "resolver": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "settler": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "treasury": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        }
+      },
+      "$comment": "values MUST sum to 10000"
+    },
+    "min_stake": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,38})$",
+      "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+    },
+    "resolver_bond": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,38})$",
+      "description": "Unsigned base-unit amount as decimal string, <= 2^128-1"
+    },
+    "resolve_window": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "dispute_window": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_rounds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 32
+    },
+    "reveal_window": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

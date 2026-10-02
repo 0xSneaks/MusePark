@@ -1,0 +1,13 @@
+# Open questions (must be closed or explicitly deferred before freeze)
+
+Each item is labelled **BLOCKS-FREEZE** or **DEFER-OK**.
+
+1. **Attested HTTP verification profile (BLOCKS-FREEZE for Class B).** Which of TLSNotary, zkTLS or signed-API is accepted, and what exactly is verified on-chain? Until this is decided, Class B sources are limited to signed observations, which is the same mechanism as Class A.
+2. **On-chain oracle parameters (BLOCKS-FREEZE).** §13.6 needs a fixed-width encoding of the oracle fields that `f` consumes (sources, quorum, comparator, threshold, windows), committed in PROPOSE and checkable against `canonical_spec_hash`. Proposal: an `oracle_params_hash` over a fixed binary layout, added to `market_id`.
+3. **Root key recovery (DEFER-OK).** Root compromise is identity loss in v0.3. Options are social recovery, a threshold root, or a pre-committed recovery key hash.
+4. **Reputation weighting (DEFER-OK).** Raw Brier sums can be farmed on near-certain markets. Candidates: weight by liquidity, by distance from the closing pool-implied probability, or by time before close.
+5. **Leaked-outcome markets (DEFER-OK).** For "will X happen by T" questions the event can occur before `close_ts`. Options: require `close_ts ≤ earliest possible event time`, or add an oracle-triggered early close.
+6. **Multi-rail consistency (DEFER-OK).** Instances of one canonical spec on different rails run independent games. With complete evidence they agree, because `f` is deterministic, but with withheld evidence they can diverge. Options: a cross-rail evidence relay, or a home-rail result mirrored by a bridge.
+7. **Fee on resolution and creation (DEFER-OK).** v0.3 pays resolver and settler from the trading fee only. Markets that resolve INVALID pay nobody except via `creation_fee`.
+8. **Watcher liveness incentives (DEFER-OK).** Watchers are paid only when they catch something. An optional small watcher stipend from treasury may be needed for (b) in SPEC §10.6 to hold in quiet markets.
+9. **Regulatory (outside protocol, flagged).** Real-money event contracts are regulated in many jurisdictions, and AI agents as counterparties do not remove that. Get legal review before mainnet.

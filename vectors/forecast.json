@@ -1,0 +1,43 @@
+{
+  "agent_id": "8df791a9ac6019d55acc0650c6be7d612114f44b00b26e5582cb047fd23c26e8",
+  "cases": [
+    {
+      "brier_ppm2_if_NO": 0,
+      "brier_ppm2_if_YES": 1000000000000,
+      "commitment": "9944f944fd77105847ab7a37c05c4b9062e35f4d16a534fe85036ad49b73b9f8",
+      "p_ppm": 0
+    },
+    {
+      "brier_ppm2_if_NO": 1,
+      "brier_ppm2_if_YES": 999998000001,
+      "commitment": "34a1d32b91835f97a86673acba24621c98776f57ef45037b0ba1db0982d95dcb",
+      "p_ppm": 1
+    },
+    {
+      "brier_ppm2_if_NO": 250000000000,
+      "brier_ppm2_if_YES": 250000000000,
+      "commitment": "0b02014565a82e3087101ea5255d1e46c681359e95a72ab9ad03f9c599f5698a",
+      "p_ppm": 500000
+    },
+    {
+      "brier_ppm2_if_NO": 532900000000,
+      "brier_ppm2_if_YES": 72900000000,
+      "commitment": "b37d80d0a7f0ee0876990e5064ab1c12946c1da215faf627d51c725eb762926d",
+      "p_ppm": 730000
+    },
+    {
+      "brier_ppm2_if_NO": 999998000001,
+      "brier_ppm2_if_YES": 1,
+      "commitment": "41d53d104df5ee0a0390985633935265439c90d351ad24008b6b1a98c7d532f2",
+      "p_ppm": 999999
+    },
+    {
+      "brier_ppm2_if_NO": 1000000000000,
+      "brier_ppm2_if_YES": 0,
+      "commitment": "9170e1aaf393561c55b3443fa741f75749e0f29045356c1a9766be26d90dbf1c",
+      "p_ppm": 1000000
+    }
+  ],
+  "market_id": "bb5661706cd2994d95406593ff7ede996f591ab84ac6e14ee4fb6c85b2c5143c",
+  "salt": "c7908d578caa6484d1b36e1465e2e47d4725b640348330446c4f4f1fbd863521"
+}

@@ -1,0 +1,27 @@
+{
+  "identities": [
+    {
+      "agent_id": "70b8791c5f57b15082e1248c723567c6bda4882be12e2f9cfba2db633965144f",
+      "alg": "ed25519",
+      "kid": "c620d22ba9ecfcf0ac122873f510823786293348b04b4888d53549b97e2f4326",
+      "pubkey": "86db2a7036b0e344cea5fd817cdec685469b78a00c3af78ef06e08f079ab8253",
+      "test_private_key": "68cfb86b77e3e1eefe2cf644a8b9346c5f99b505808a5038af3e5352c300bb10"
+    },
+    {
+      "agent_id": "8df791a9ac6019d55acc0650c6be7d612114f44b00b26e5582cb047fd23c26e8",
+      "alg": "secp256k1",
+      "kid": "bd34ea72bc648f11fa66eb77d3a689ced6f0f3f46e03bd887b7ee636b2e7d4db",
+      "pubkey": "021c57a1a3d47bf15964bc3d036b5eae44fc6505b3011520fedc006a2398395891",
+      "test_private_key": "b2db429b07a3713e0406dce5e87f7e3ac46a8893d0449628d0181de0c395b6bc"
+    }
+  ],
+  "key_bind": {
+    "agent_id": "70b8791c5f57b15082e1248c723567c6bda4882be12e2f9cfba2db633965144f",
+    "cosig_by_new_key": "ee185558894734d02300f185417430fbe9fdd142b0afa86165b180c8ed9b964e416073b777774087fbba57231ae2596c56937c2c64250f172ee81ee757c1bac201",
+    "keybind_digest": "7c439984232bd953e1ddf5dd5266a631736527df24b3703faa915dc117e44b50",
+    "new_alg": "secp256k1",
+    "new_kid": "a2a7fa99719cfc19b62ba8e12e9f8d9300b9ad0215802cb3315887e9936e550e",
+    "new_pubkey": "031721730922460bdecf5ec46027ca0f5c26a0f809e594ccdd59f9b61d3721c30f",
+    "valid_from": 1798500000
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "cases": [
+    {
+      "fee_bps": 200,
+      "name": "normal_with_dust",
+      "outcome": "YES",
+      "positions": [
+        {
+          "amount": "5000000",
+          "side": "YES"
+        },
+        {
+          "amount": "3333333",
+          "side": "NO"
+        },
+        {
+          "amount": "1000",
+          "side": "YES"
+        }
+      ],
+      "result": {
+        "case": "NORMAL",
+        "dust": "1",
+        "fee_shares": {
+          "proposer": "19999",
+          "resolver": "19999",
+          "settler": "6666"
+        },
+        "fee_total": "66666",
+        "payouts": [
+          "8266013",
+          "0",
+          "1653"
+        ],
+        "treasury_total": "20003"
+      }
+    },
+    {
+      "fee_bps": 200,
+      "name": "normal_no_wins",
+      "outcome": "NO",
+      "positions": [
+        {
+          "amount": "5000000",
+          "side": "YES"
+        },
+        {
+          "amount": "3333333",
+          "side": "NO"
+        },
+        {
+          "amount": "1000",
+          "side": "YES"
+        }
+      ],
+      "result": {
+        "case": "NORMAL",
+        "dust": "0",
+        "fee_shares": {
+          "proposer": "30006",
+          "resolver": "30006",
+          "settler": "10002"
+        },
+        "fee_total": "100020",
+        "payouts": [
+          "0",
+          "8234313",
+          "0"
+        ],
+        "treasury_total": "30006"
+      }
+    },
+    {
+      "fee_bps": 200,
+      "name": "no_winners_refund",
+      "outcome": "YES",
+      "positions": [
+        {
+          "amount": "700",
+          "side": "NO"
+        },
+        {
+          "amount": "300",
+          "side": "NO"
+        }
+      ],
+      "result": {
+        "case": "NO_WINNERS_REFUND",
+        "dust": "0",
+        "fee_shares": {
+          "proposer": "0",
+          "resolver": "0",
+          "settler": "0"
+        },
+        "fee_total": "0",
+        "payouts": [
+          "700",
+          "300"
+        ],
+        "treasury_total": "0"
+      }
+    },
+    {
+      "fee_bps": 200,
+      "name": "one_sided_refund",
+      "outcome": "YES",
+      "positions": [
+        {
+          "amount": "700",
+          "side": "YES"
+        },
+        {
+          "amount": "300",
+          "side": "YES"
+        }
+      ],
+      "result": {
+        "case": "ONE_SIDED_REFUND",
+        "dust": "0",
+        "fee_shares": {
+          "proposer": "0",
+          "resolver": "0",
+          "settler": "0"
+        },
+        "fee_total": "0",
+        "payouts": [
+          "700",
+          "300"
+        ],
+        "treasury_total": "0"
+      }
+    },
+    {
+      "fee_bps": 200,
+      "name": "empty",
+      "outcome": "YES",
+      "positions": [],
+      "result": {
+        "case": "EMPTY",
+        "dust": "0",
+        "fee_shares": {
+          "proposer": "0",
+          "resolver": "0",
+          "settler": "0"
+        },
+        "fee_total": "0",
+        "payouts": [],
+        "treasury_total": "0"
+      }
+    },
+    {
+      "fee_bps": 200,
+      "name": "invalid_refund",
+      "outcome": "INVALID",
+      "positions": [
+        {
+          "amount": "10",
+          "side": "YES"
+        },
+        {
+          "amount": "20",
+          "side": "NO"
+        }
+      ],
+      "result": {
+        "case": "INVALID_REFUND",
+        "dust": "0",
+        "fee_shares": {
+          "proposer": "0",
+          "resolver": "0",
+          "settler": "0"
+        },
+        "fee_total": "0",
+        "payouts": [
+          "10",
+          "20"
+        ],
+        "treasury_total": "0"
+      }
+    },
+    {
+      "fee_bps": 0,
+      "name": "three_way_dust",
+      "outcome": "YES",
+      "positions": [
+        {
+          "amount": "1",
+          "side": "YES"
+        },
+        {
+          "amount": "1",
+          "side": "YES"
+        },
+        {
+          "amount": "1",
+          "side": "YES"
+        },
+        {
+          "amount": "10",
+          "side": "NO"
+        }
+      ],
+      "result": {
+        "case": "NORMAL",
+        "dust": "1",
+        "fee_shares": {
+          "proposer": "0",
+          "resolver": "0",
+          "settler": "0"
+        },
+        "fee_total": "0",
+        "payouts": [
+          "4",
+          "4",
+          "4",
+          "0"
+        ],
+        "treasury_total": "1"
+      }
+    },
+    {
+      "fee_bps": 10000,
+      "name": "max_fee",
+      "outcome": "YES",
+      "positions": [
+        {
+          "amount": "100",
+          "side": "YES"
+        },
+        {
+          "amount": "100",
+          "side": "NO"
+        }
+      ],
+      "result": {
+        "case": "NORMAL",
+        "dust": "0",
+        "fee_shares": {
+          "proposer": "30",
+          "resolver": "30",
+          "settler": "10"
+        },
+        "fee_total": "100",
+        "payouts": [
+          "100",
+          "0"
+        ],
+        "treasury_total": "30"
+      }
+    }
+  ],
+  "fee_split_bps": {
+    "proposer": 3000,
+    "resolver": 3000,
+    "settler": 1000,
+    "treasury": 3000
+  }
+}

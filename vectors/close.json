@@ -1,0 +1,32 @@
+{
+  "empty_root": "146ee027693f0c6ceb97422df8305fa42d0c14643393ca04f01e8f6ea7ea0be5",
+  "leaves": [
+    "86eff4b9f022ab3e44b074a44c1bb8e2a4df8f9f7dd8a732a109944168c71e42",
+    "587d2ed158ec6d16536f11201796f9a69cfa114de4eb253159c938ba5314ae55",
+    "64557b9cf964f0507d72473c3b90a6bebb6b277914d8ca082cafb1ca1efdce70"
+  ],
+  "market_id": "bb5661706cd2994d95406593ff7ede996f591ab84ac6e14ee4fb6c85b2c5143c",
+  "positions": [
+    {
+      "agent_id": "8df791a9ac6019d55acc0650c6be7d612114f44b00b26e5582cb047fd23c26e8",
+      "amount": "5000000",
+      "side": "YES"
+    },
+    {
+      "agent_id": "c202c9ee54170d68cd653eef8699d277f0370f991f9225bdfe28ed596f24dae2",
+      "amount": "3333333",
+      "side": "NO"
+    },
+    {
+      "agent_id": "70b8791c5f57b15082e1248c723567c6bda4882be12e2f9cfba2db633965144f",
+      "amount": "1000",
+      "side": "YES"
+    }
+  ],
+  "snapshot": {
+    "no_pool": "3333333",
+    "position_count": 3,
+    "positions_root": "6ba67d093319dc8eccb3e67eaaa0517f370f5b2e2d79e5a4009ac9a7a8888c81",
+    "yes_pool": "5001000"
+  }
+}

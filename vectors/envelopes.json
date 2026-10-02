@@ -1,0 +1,117 @@
+{
+  "cases": [
+    {
+      "alg": "ed25519",
+      "envelope": {
+        "body": {
+          "instance": {
+            "collateral": "eip155:31337/erc20:0x0000000000000000000000000000000000000001",
+            "creation_fee": "0",
+            "dispute_window": 7200,
+            "fee_bps": 200,
+            "fee_split_bps": {
+              "proposer": 3000,
+              "resolver": 3000,
+              "settler": 1000,
+              "treasury": 3000
+            },
+            "max_rounds": 4,
+            "min_stake": "1000",
+            "rail": "eip155:31337",
+            "resolve_window": 86400,
+            "resolver_bond": "1000000",
+            "reveal_window": 86400
+          },
+          "salt": "efb4cde2fc85c00ba36d1dd2283b39d36a61e67268e2eb1c53d201ef27352d84",
+          "spec": {
+            "amp": "0.3",
+            "close_ts": 1798588800,
+            "oracle": {
+              "class": "A",
+              "comparator": "gte",
+              "decimals": 2,
+              "feed": "TEST/USD",
+              "finality_delay": 60,
+              "kind": "numeric_threshold",
+              "observation_ts": 1798675200,
+              "publish_window": 3600,
+              "quorum": 2,
+              "sources": [
+                {
+                  "alg": "ed25519",
+                  "pubkey": "a67f722b4fe61be85328c53f296f94613b810a309fa61f5ca0fe53f3c0d992af"
+                },
+                {
+                  "alg": "ed25519",
+                  "pubkey": "1551b51dbf245445a7e1e5b1fddeffe9e778deae18e53f6fb4c7d251670078ae"
+                },
+                {
+                  "alg": "ed25519",
+                  "pubkey": "3bf2bd203ac3cf1ff51f995fba1f0508e06a0430eb00767130a2c7328c52f63d"
+                }
+              ],
+              "threshold": "10000000"
+            },
+            "question": "Will the TEST/USD feed print >= 100000.00 at 2026-12-31T00:00:00Z?",
+            "rules": "Informative only. The oracle object is normative."
+          }
+        },
+        "expires_at": 1798000000,
+        "from": "70b8791c5f57b15082e1248c723567c6bda4882be12e2f9cfba2db633965144f",
+        "kid": "c620d22ba9ecfcf0ac122873f510823786293348b04b4888d53549b97e2f4326",
+        "market_id": "bb5661706cd2994d95406593ff7ede996f591ab84ac6e14ee4fb6c85b2c5143c",
+        "seq": 0,
+        "sig": "fdd9d788270f29f947f4835f7d448ac49d0026f7756670c96fe8be9b33e691674a15a7481c4d396cb1618db34348a8a7a6b969c00460e3f1b51f82490c4a9b05",
+        "type": "PROPOSE"
+      },
+      "envelope_hash": "b311d25b969b9ba6ec468fde7fef98fb287a0da0b9cc98940b3f4183c9a69059",
+      "pubkey": "86db2a7036b0e344cea5fd817cdec685469b78a00c3af78ef06e08f079ab8253",
+      "signing_digest": "953ac65a2dcbcb562c467092bdf515176557b25d797775d53675164ae6c41289"
+    },
+    {
+      "alg": "secp256k1",
+      "envelope": {
+        "body": {
+          "amount": "5000000",
+          "side": "YES"
+        },
+        "expires_at": 1798500000,
+        "from": "8df791a9ac6019d55acc0650c6be7d612114f44b00b26e5582cb047fd23c26e8",
+        "kid": "bd34ea72bc648f11fa66eb77d3a689ced6f0f3f46e03bd887b7ee636b2e7d4db",
+        "market_id": "bb5661706cd2994d95406593ff7ede996f591ab84ac6e14ee4fb6c85b2c5143c",
+        "seq": 1,
+        "sig": "e083ccf7faeda6189e1a29ae375923d0077c4372449e502e0dbd2b9d7a7047eb39f07d4f3744607049ea8d49a0a3b7ccf1369f82ca12eda42545f879b668880d00",
+        "type": "SUBMIT_POSITION"
+      },
+      "envelope_hash": "912100d187d836dc958f1716e8c351ffe5f76cd86266e87feb171e972e914153",
+      "pubkey": "021c57a1a3d47bf15964bc3d036b5eae44fc6505b3011520fedc006a2398395891",
+      "signing_digest": "aa3e77ef991db968dedb201b3fbb9303305fb8fb9720e0d6574c2a63ad9549cb"
+    },
+    {
+      "alg": "secp256k1",
+      "envelope": {
+        "body": {
+          "rails": [
+            "eip155:31337"
+          ],
+          "roles": [
+            "settler",
+            "resolver"
+          ]
+        },
+        "expires_at": 1798000000,
+        "from": "8df791a9ac6019d55acc0650c6be7d612114f44b00b26e5582cb047fd23c26e8",
+        "kid": "bd34ea72bc648f11fa66eb77d3a689ced6f0f3f46e03bd887b7ee636b2e7d4db",
+        "market_id": "0000000000000000000000000000000000000000000000000000000000000000",
+        "seq": 7,
+        "sig": "504e77c7a88d0c769c87084f8a2c2e4c7d6fc9762348b45d893e774089d183364816e9e8cf8a07c25a74db48bcf767f232989efe8a5a4d6511e701f955aa576901",
+        "type": "CAPABILITY_AD"
+      },
+      "envelope_hash": "ad7e5e3e92d76211e8a274c7f38f5a0d733876768043fa037d32a1c3e45e9750",
+      "pubkey": "021c57a1a3d47bf15964bc3d036b5eae44fc6505b3011520fedc006a2398395891",
+      "signing_digest": "363883701b0b08bf4ec1a439b735c1066c64c1cddeadeaf8e13524a9d9af6e73"
+    }
+  ],
+  "deployment": "musepark-testnet",
+  "domain": "AMP/0.3/musepark-testnet"
+}

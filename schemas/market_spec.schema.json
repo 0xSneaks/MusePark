@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/0xSneaks/MusePark/schemas/market_spec.schema.json",
+  "title": "AMP canonical market spec (chain-agnostic)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "amp",
+    "question",
+    "rules",
+    "close_ts",
+    "oracle"
+  ],
+  "properties": {
+    "amp": {
+      "const": "0.3"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rules": {
+      "type": "string"
+    },
+    "close_ts": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "oracle": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "class",
+            "comparator",
+            "decimals",
+            "feed",
+            "finality_delay",
+            "kind",
+            "observation_ts",
+            "publish_window",
+            "quorum",
+            "sources",
+            "threshold"
+          ],
+          "properties": {
+            "kind": {
+              "const": "numeric_threshold"
+            },
+            "class": {
+              "enum": [
+                "A",
+                "B"
+              ]
+            },
+            "feed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "observation_ts": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "finality_delay": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "publish_window": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "sources": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "alg",
+                  "pubkey"
+                ],
+                "properties": {
+                  "alg": {
+                    "enum": [
+                      "ed25519",
+                      "secp256k1"
+                    ]
+                  },
+                  "pubkey": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}([0-9a-f]{2})?$"
+                  }
+                }
+              }
+            },
+            "quorum": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "decimals": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 36
+            },
+            "comparator": {
+              "enum": [
+                "gt",
+                "gte",
+                "lt",
+                "lte"
+              ]
+            },
+            "threshold": {
+              "type": "string",
+              "pattern": "^-?(0|[1-9][0-9]{0,38})$",
+              "description": "Signed integer as decimal string (i128). '-0' is invalid."
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "class",
+            "feed",
+            "finality_delay",
+            "kind",
+            "observation_ts",
+            "publish_window",
+            "quorum",
+            "sources"
+          ],
+          "properties": {
+            "kind": {
+              "const": "boolean_attestation"
+            },
+            "class": {
+              "enum": [
+                "A",
+                "B"
+              ]
+            },
+            "feed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "observation_ts": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "finality_delay": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "publish_window": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "sources": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "alg",
+                  "pubkey"
+                ],
+                "properties": {
+                  "alg": {
+                    "enum": [
+                      "ed25519",
+                      "secp256k1"
+                    ]
+                  },
+                  "pubkey": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}([0-9a-f]{2})?$"
+                  }
+                }
+              }
+            },
+            "quorum": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$comment": "Semantic rules not expressible here (close_ts <= observation_ts, quorum <= n, boolean quorum > n/2, unique sources) are in SPEC.md section 5.2."
+}
