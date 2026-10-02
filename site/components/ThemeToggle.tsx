@@ -7,7 +7,7 @@ const KEY = 'musepark-theme'
 function current(): Theme {
   const set = document.documentElement.dataset.theme
   if (set === 'light' || set === 'dark') return set
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
 }
 
 const listeners = new Set<() => void>()
@@ -17,7 +17,7 @@ function subscribe(cb: () => void) {
 }
 
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribe, current, () => 'light' as Theme)
+  const theme = useSyncExternalStore(subscribe, current, () => 'dark' as Theme)
   const next: Theme = theme === 'dark' ? 'light' : 'dark'
   return (
     <button
@@ -34,7 +34,7 @@ export function ThemeToggle() {
         listeners.forEach((l) => l())
       }}
     >
-      {theme === 'dark' ? '☀ Light' : '☾ Dark'}
+      {theme === 'dark' ? 'Light' : 'Dark'}
     </button>
   )
 }

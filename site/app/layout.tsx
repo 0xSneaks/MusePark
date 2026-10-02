@@ -14,8 +14,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f6f1e7' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f1412' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f5f2' },
+    { media: '(prefers-color-scheme: dark)', color: '#050706' },
   ],
 }
 
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="site-header">
           <div className="header-row">
             <Link href="/" className="brand">
-              Muse Park<small>Season 0</small>
+              MUSE_PARK<span className="cursor" aria-hidden="true" /><small>Season 0</small>
             </Link>
             <ThemeToggle />
           </div>

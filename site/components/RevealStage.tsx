@@ -1,12 +1,14 @@
 'use client'
 import { useCallback, useMemo, useState } from 'react'
-import { formatBrier, formatPct, short, type Verdict } from '@/lib/amp'
+import { formatBrier, formatPct, type Verdict } from '@/lib/amp'
 import type { Envelope, RevealData } from '@/lib/derive'
 import { SIM_BANNER_TEXT } from './SimBanner'
 
-const COIN_LABEL: Record<Verdict, string> = { BEAT: 'Beat the coin', TIED: 'Tied the coin', LOST: 'Lost to the coin' }
-const CROWD_LABEL: Record<Verdict, string> = { BEAT: 'Beat the crowd', TIED: 'Tied the crowd', LOST: 'Lost to the crowd' }
+const ARROW: Record<Verdict, string> = { BEAT: '▲', TIED: '=', LOST: '▼' }
+const COIN_LABEL: Record<Verdict, string> = { BEAT: 'BEAT THE COIN', TIED: 'TIED THE COIN', LOST: 'LOST TO THE COIN' }
+const CROWD_LABEL: Record<Verdict, string> = { BEAT: 'BEAT THE CROWD', TIED: 'TIED THE CROWD', LOST: 'LOST TO THE CROWD' }
 const tone = (v: Verdict) => (v === 'BEAT' ? 'win' : v === 'LOST' ? 'lose' : 'tie')
+const HEX: Record<Verdict, string> = { BEAT: '#39ff8f', TIED: '#8a968f', LOST: '#ff4d5e' }
 
 function drawShareCard(env: Envelope, scenario: string, outcome: string): string {
   const W = 1080
@@ -16,42 +18,42 @@ function drawShareCard(env: Envelope, scenario: string, outcome: string): string
   c.height = H
   const g = c.getContext('2d')
   if (!g) return ''
-  g.fillStyle = '#f3e9d2'
+  const mono = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
+  g.fillStyle = '#050706'
   g.fillRect(0, 0, W, H)
-  g.strokeStyle = '#a87a1c'
-  g.lineWidth = 16
-  g.strokeRect(40, 40, W - 80, H - 80)
-  g.fillStyle = '#1d1a16'
+  g.fillStyle = '#ffb000'
+  g.fillRect(0, 0, W, 64)
+  g.fillStyle = '#120c00'
+  g.font = `800 26px ${mono}`
   g.textAlign = 'center'
-  g.font = '700 64px Georgia, serif'
-  g.fillText('Muse Park · Reveal Night', W / 2, 170)
-  g.font = '400 34px Georgia, serif'
-  g.fillText(`Conformance case #${env.index} · outcome ${outcome}`, W / 2, 230)
-  g.font = '700 220px Georgia, serif'
-  g.fillText(formatPct(env.p_ppm), W / 2, 500)
-  g.font = '400 40px ui-monospace, monospace'
-  g.fillText(env.brier ? `Brier ${formatBrier(BigInt(env.brier))}` : 'Not scored (INVALID)', W / 2, 590)
-  const stamps: [string, string][] = []
-  if (env.coin) stamps.push([COIN_LABEL[env.coin].toUpperCase(), env.coin === 'BEAT' ? '#1f7a4d' : env.coin === 'LOST' ? '#a3262a' : '#6b6152'])
-  if (env.crowd) stamps.push([CROWD_LABEL[env.crowd].toUpperCase(), env.crowd === 'BEAT' ? '#1f7a4d' : env.crowd === 'LOST' ? '#a3262a' : '#6b6152'])
-  stamps.forEach(([text, color], i) => {
-    g.save()
-    g.translate(W / 2, 700 + i * 110)
-    g.rotate(-0.06)
-    g.strokeStyle = color
-    g.fillStyle = color
-    g.lineWidth = 8
-    g.font = '800 52px system-ui, sans-serif'
-    const w = g.measureText(text).width + 60
-    g.strokeRect(-w / 2, -55, w, 80)
-    g.fillText(text, 0, 5)
-    g.restore()
+  g.fillText(SIM_BANNER_TEXT.toUpperCase(), W / 2, 42)
+  g.strokeStyle = '#2e3d35'
+  g.lineWidth = 2
+  g.strokeRect(48, 112, W - 96, H - 200)
+  g.textAlign = 'left'
+  g.fillStyle = '#39ff8f'
+  g.font = `800 40px ${mono}`
+  g.fillText('> MUSE PARK // REVEAL NIGHT', 88, 180)
+  g.fillStyle = '#7d8b83'
+  g.font = `400 28px ${mono}`
+  g.fillText(`CASE #${env.index}   OUTCOME ${outcome}`, 88, 232)
+  g.fillStyle = '#d7e2db'
+  g.font = `800 200px ${mono}`
+  g.fillText(formatPct(env.p_ppm), 80, 470)
+  g.fillStyle = '#4fd8ff'
+  g.font = `600 40px ${mono}`
+  g.fillText(env.brier ? `BRIER ${formatBrier(BigInt(env.brier))}` : 'NOT SCORED (INVALID)', 88, 550)
+  const rows: [Verdict, string][] = []
+  if (env.coin) rows.push([env.coin, COIN_LABEL[env.coin]])
+  if (env.crowd) rows.push([env.crowd, CROWD_LABEL[env.crowd]])
+  rows.forEach(([v, text], i) => {
+    g.fillStyle = HEX[v]
+    g.font = `800 52px ${mono}`
+    g.fillText(`${ARROW[v]} ${text}`, 88, 670 + i * 90)
   })
-  g.fillStyle = '#5a4300'
-  g.font = '700 28px system-ui, sans-serif'
-  g.fillText(SIM_BANNER_TEXT, W / 2, H - 120)
-  g.font = '400 24px ui-monospace, monospace'
-  g.fillText(`scenario: ${scenario}`, W / 2, H - 80)
+  g.fillStyle = '#7d8b83'
+  g.font = `400 24px ${mono}`
+  g.fillText(`scenario: ${scenario}`, 88, H - 120)
   return c.toDataURL('image/png')
 }
 
@@ -88,11 +90,13 @@ export function RevealStage({ data, initial }: { data: RevealData; initial: stri
   }
 
   return (
-    <div className="grid" style={{ gap: '1rem' }}>
+    <div className="grid">
       <div className="card">
-        <label htmlFor="scenario" className="kicker" style={{ display: 'block' }}>
-          Ending (from arbitration.json)
-        </label>
+        <div className="panel-title">
+          <span>Ending · arbitration.json</span>
+          <b className={s.scored ? 'up' : 'flat'}>{s.settled ? `${s.outcome} / ${s.reason}` : `UNSETTLED / ${s.reason}`}</b>
+        </div>
+        <label htmlFor="scenario" className="sr-only">Ending</label>
         <select
           id="scenario"
           value={scenario}
@@ -107,50 +111,60 @@ export function RevealStage({ data, initial }: { data: RevealData; initial: stri
             </option>
           ))}
         </select>
-        <p className="small muted" style={{ marginTop: '0.5rem' }}>
-          {s.scored ? (
-            <>
-              Settled <strong>{s.outcome}</strong>. Coin (50%) scores {formatBrier(BigInt(view.coin_brier!))}; the crowd (closing pool,{' '}
-              {formatPct(data.pool.p_ppm)} YES) scores {formatBrier(BigInt(view.pool_brier!))}. Lower is better.
-            </>
-          ) : (
-            <>This ending is {s.settled ? `${s.outcome} (${s.reason})` : `not settled (${s.reason})`}. Only YES/NO markets are scored (SPEC §11), so the seals stay meaningless here.</>
-          )}
-        </p>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        {s.scored ? (
+          <div className="table-wrap" style={{ marginTop: '0.6rem' }}>
+            <table>
+              <thead>
+                <tr><th scope="col">Baseline</th><th scope="col" className="num">p (YES)</th><th scope="col" className="num">Brier</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Coin</td><td className="num">{formatPct(data.coin_p_ppm)}</td><td className="num">{formatBrier(BigInt(view.coin_brier!))}</td></tr>
+                <tr><td>Crowd (closing pool)</td><td className="num">{formatPct(data.pool.p_ppm)}</td><td className="num">{formatBrier(BigInt(view.pool_brier!))}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="small muted" style={{ marginTop: '0.6rem' }}>Only YES/NO markets are scored (SPEC §11). This ending leaves every slot unscored.</p>
+        )}
+        <div style={{ marginTop: '0.6rem' }}>
           <button type="button" className="btn" onClick={() => setOpen(allOpen ? new Set() : new Set(view.envelopes.map((e) => e.index)))}>
             {allOpen ? 'Reseal all' : 'Break all seals'}
           </button>
         </div>
       </div>
 
-      <div className="envelopes" role="list">
+      <div className="reveal-grid" role="list">
         {view.envelopes.map((e) => {
           const isOpen = open.has(e.index)
           return (
-            <div role="listitem" key={e.index}>
+            <div role="listitem" key={e.index} style={{ background: 'var(--surface)' }}>
               <button
                 type="button"
-                className={`envelope${isOpen ? ' open' : ''}`}
+                className={`slot${isOpen ? ' open' : ''}`}
                 aria-pressed={isOpen}
-                aria-label={isOpen ? `Case ${e.index}: forecast ${formatPct(e.p_ppm)}` : `Sealed case ${e.index}, commitment ${short(e.commitment)}. Break the seal.`}
+                aria-label={isOpen ? `Case ${e.index}: forecast ${formatPct(e.p_ppm)}` : `Sealed case ${e.index}. Break the seal.`}
                 onClick={() => toggle(e.index)}
               >
-                <span className="flap" aria-hidden="true" />
-                <span className="seal" aria-hidden="true"><span className="seal-label">#{e.index}</span></span>
-                <span className="commit" aria-hidden="true">{short(e.commitment, 8)}</span>
-                <span className="inside" aria-live="polite">
-                  <span className="p">{formatPct(e.p_ppm)}</span>
-                  <span className="small mono">{e.brier ? `Brier ${formatBrier(BigInt(e.brier))}` : 'not scored'}</span>
-                  <span className="stamps">
-                    {e.coin && <span className={`stamp ${tone(e.coin)}`}>{COIN_LABEL[e.coin]}</span>}
-                    {e.crowd && <span className={`stamp ${tone(e.crowd)}`}>{CROWD_LABEL[e.crowd]}</span>}
+                <span className="slot-head">
+                  <span>Case #{e.index}</span>
+                  <span className="slot-state">{isOpen ? '● REVEALED' : '■ SEALED'}</span>
+                </span>
+                <span className="slot-sealed">
+                  <span className="slot-hash">commit {e.commitment.slice(0, 24)}…</span>
+                  <span className="slot-redact" aria-hidden="true">00.00%</span>
+                </span>
+                <span className="slot-body" aria-live="polite">
+                  <span className="slot-p" style={{ display: 'block' }}>{formatPct(e.p_ppm)}</span>
+                  <span className="slot-row">
+                    <span className="mono">{e.brier ? `BRIER ${formatBrier(BigInt(e.brier))}` : 'NOT SCORED'}</span>
+                    {e.coin && <span className={`mark ${tone(e.coin)}`}>{ARROW[e.coin]} {COIN_LABEL[e.coin]}</span>}
+                    {e.crowd && <span className={`mark ${tone(e.crowd)}`}>{ARROW[e.crowd]} {CROWD_LABEL[e.crowd]}</span>}
                   </span>
                 </span>
               </button>
               {isOpen && (
-                <button type="button" className="btn ghost" style={{ width: '100%', marginTop: '0.35rem', minHeight: 40 }} onClick={() => share(e)}>
-                  Save share card
+                <button type="button" className="share" onClick={() => share(e)}>
+                  ↓ Save share card
                 </button>
               )}
             </div>
@@ -160,7 +174,7 @@ export function RevealStage({ data, initial }: { data: RevealData; initial: stri
 
       {summary && allOpen && (
         <p className="note" aria-live="polite">
-          {summary.beatCoin} of {summary.total} envelopes beat the coin; {summary.beatCrowd} of {summary.total} beat the crowd.
+          <span className="up">{summary.beatCoin}/{summary.total}</span> beat the coin · <span className="up">{summary.beatCrowd}/{summary.total}</span> beat the crowd
         </p>
       )}
     </div>

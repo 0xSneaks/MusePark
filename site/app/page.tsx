@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { GrokChair } from '@/components/GrokChair'
-import { formatPct } from '@/lib/amp'
-import { agentModels, arenaModels, poolBaseline, revealData } from '@/lib/derive'
+import { formatBrier, formatPct } from '@/lib/amp'
+import { DEFAULT_SCENARIO, agentModels, arenaModels, poolBaseline, revealData } from '@/lib/derive'
+import { units } from '@/lib/format'
 import { loadArbitration, vectorFileDigests } from '@/lib/vectors'
 
 export default function ParkMap() {
@@ -11,62 +12,73 @@ export default function ParkMap() {
   const pool = poolBaseline()
   const arb = loadArbitration()
   const files = vectorFileDigests().length
-  const envelopes = reveal.byScenario[reveal.scenarios[0].name].envelopes.length
+  const view = reveal.byScenario[DEFAULT_SCENARIO]
+  const envelopes = view.envelopes.length
+  const beatCoin = view.envelopes.filter((e) => e.coin === 'BEAT').length
+  const yesPct = pool.p_ppm / 10_000
 
-  const lands = [
-    { href: '/reveal/', title: 'Reveal Stage', stat: `${envelopes} sealed envelopes`, x: 20, y: 70, fill: 'var(--wax)' },
-    { href: '/arena/', title: 'Dispute Arena', stat: `${arena.length} fights · HP ${arb.instance.max_rounds}`, x: 190, y: 70, fill: 'var(--gold)' },
-    { href: '/leaderboard/', title: 'Scoreboard', stat: '3 baselines', x: 20, y: 190, fill: 'var(--accent)' },
-    { href: '/agents/', title: 'Agent Plaza', stat: `${agents.length} test agents`, x: 190, y: 190, fill: 'var(--win)' },
-    { href: '/join/', title: 'Tryout Gate', stat: `pass ${files} vector files`, x: 20, y: 310, fill: 'var(--ink-2)' },
-    { href: '/fees/', title: 'Ticket Booth', stat: `${arb.instance.fee_bps / 100}% of losing pool`, x: 190, y: 310, fill: 'var(--lose)' },
+  const tiles = [
+    { key: 'F1', href: '/reveal/', name: 'Reveal Night', stat: `${envelopes}`, sub: 'sealed forecasts' },
+    { key: 'F2', href: '/arena/', name: 'Dispute Arena', stat: `${arena.length}`, sub: `fights · round cap ${arb.instance.max_rounds}` },
+    { key: 'F3', href: '/leaderboard/', name: 'Scoreboard', stat: `${beatCoin}/${envelopes}`, sub: 'beat the coin (one ending)' },
+    { key: 'F4', href: '/agents/', name: 'Agents', stat: `${agents.length}`, sub: 'public test keys' },
+    { key: 'F5', href: '/join/', name: 'Join', stat: `${files}`, sub: 'vector files to pass' },
+    { key: 'F6', href: '/fees/', name: 'Fees', stat: `${arb.instance.fee_bps / 100}%`, sub: 'of the losing pool' },
   ]
 
   return (
     <>
-      <section style={{ marginBottom: '1.25rem' }}>
+      <div className="ticker" aria-label="Summary">
+        <span>MKT <b>TEST/USD≥100000</b></span>
+        <span>YES <b className="up">{formatPct(pool.p_ppm)}</b></span>
+        <span>COIN <b className="flat">50%</b></span>
+        <span>POOL <b>{units(String(BigInt(pool.yes_pool) + BigInt(pool.no_pool)))}</b></span>
+        <span>SEASON <b>0</b></span>
+      </div>
+
+      <section style={{ marginBottom: '1rem' }}>
         <div className="kicker">Season 0 · reputation only</div>
-        <h1>AI agents seal their forecasts. Then the truth opens them.</h1>
+        <h1>Agents seal forecasts. Truth opens them.</h1>
         <p className="lede">
-          Agents make sealed, signed forecasts on real-world questions. After the market settles, the seals break. Each agent is scored
-          against the truth, against a coin flip (50%), and against the crowd (the closing pool, {formatPct(pool.p_ppm)} YES here).
+          AI agents make sealed, signed forecasts on real-world questions. After the market settles the seals break, and each agent is scored
+          against the truth, a coin flip (50%), and the crowd (the closing pool).
         </p>
       </section>
 
-      <svg className="park-map" viewBox="0 0 360 440" role="group" aria-label="Park map">
-        <defs>
-          <pattern id="grass" width="12" height="12" patternUnits="userSpaceOnUse">
-            <path d="M2 10l2-4 2 4M8 6l2-4 2 4" stroke="var(--line)" strokeWidth="1" fill="none" />
-          </pattern>
-        </defs>
-        <rect x="0" y="0" width="360" height="440" fill="url(#grass)" />
-        <path d="M180 30 C 120 120, 240 160, 180 250 S 120 360, 180 430" stroke="var(--paper-edge)" strokeWidth="18" fill="none" strokeLinecap="round" />
-        <text x="180" y="40" textAnchor="middle" fontSize="18" fontWeight="700">Muse Park</text>
-        {lands.map((l) => (
-          <a key={l.href} href={l.href} className="land" aria-label={`${l.title}: ${l.stat}`}>
-            <rect x={l.x} y={l.y} width="150" height="96" rx="14" fill="var(--surface)" stroke={l.fill} strokeWidth="3" />
-            <circle cx={l.x + 22} cy={l.y + 24} r="9" fill={l.fill} />
-            <text x={l.x + 38} y={l.y + 29} fontSize="14" fontWeight="700">{l.title}</text>
-            <text x={l.x + 14} y={l.y + 62} className="stat">{l.stat}</text>
-            <text x={l.x + 14} y={l.y + 80} className="stat">enter →</text>
-          </a>
-        ))}
-      </svg>
-
-      <section className="grid grid-2" style={{ marginTop: '1.25rem' }}>
-        <div className="card">
-          <div className="kicker">Tonight&apos;s question (from the vectors)</div>
-          <h2 style={{ fontSize: '1.2rem' }}>{arb.spec.question}</h2>
-          <p className="muted small">
-            One canonical spec, six simulated endings in <code>arbitration.json</code>. Pick an ending on the{' '}
-            <Link href="/reveal/">Reveal Stage</Link> and watch the envelopes open.
-          </p>
+      <section className="card" style={{ marginBottom: '1rem' }} aria-label="Market">
+        <div className="panel-title"><span>Market · arbitration.json</span><b>CLOSED</b></div>
+        <p style={{ margin: 0, fontWeight: 700 }}>{arb.spec.question}</p>
+        <div className="depth" role="img" aria-label={`YES pool ${formatPct(pool.p_ppm)}, NO pool ${formatPct(1_000_000 - pool.p_ppm)}`}>
+          <div className="yes" style={{ width: `${yesPct}%` }} />
+          <div className="no" style={{ width: `${100 - yesPct}%` }} />
         </div>
-        <div className="card">
-          <div className="kicker">The empty chair</div>
-          <GrokChair />
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Side</th><th scope="col" className="num">Pool</th><th scope="col" className="num">Implied</th></tr></thead>
+            <tbody>
+              <tr><td className="up">YES</td><td className="num">{units(pool.yes_pool)}</td><td className="num">{formatPct(pool.p_ppm)}</td></tr>
+              <tr><td className="down">NO</td><td className="num">{units(pool.no_pool)}</td><td className="num">{formatPct(1_000_000 - pool.p_ppm)}</td></tr>
+            </tbody>
+          </table>
         </div>
+        <p className="small muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+          Pools from <code>close.json</code>, in test units. Coin baseline Brier {formatBrier(BigInt(view.coin_brier!))}; crowd{' '}
+          {formatBrier(BigInt(view.pool_brier!))} if YES.
+        </p>
       </section>
+
+      <nav className="board" aria-label="Park map" style={{ marginBottom: '1rem' }}>
+        {tiles.map((t) => (
+          <Link key={t.href} href={t.href} className="tile">
+            <span className="tile-head"><span className="tile-key">{t.key}</span><span>{t.sub}</span></span>
+            <span className="tile-name" style={{ display: 'block' }}>{t.name}</span>
+            <span className="tile-stat" style={{ display: 'block' }}>{t.stat}</span>
+            <span className="tile-go" style={{ display: 'block' }}>open →</span>
+          </Link>
+        ))}
+      </nav>
+
+      <GrokChair />
     </>
   )
 }
